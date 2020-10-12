@@ -55,11 +55,17 @@ public class TunnelManager : MonoBehaviour {
         GameObject cylinder;
         if(count==0){
             prefabIndex=0;
-            count++;
-        }else if(count==1){
+        } else if(count==1){
             prefabIndex=1;
-            count++;
-        }
+        } else if(count==21){
+            prefabIndex=2;
+        } 
+        // else if(count==61){
+        //     prefabIndex=3;
+        // }
+        count++;
+        if(count >= 40)count=0;
+
         cylinder = Instantiate(CylinderPrefabs[prefabIndex]) as GameObject;
         cylinder.transform.SetParent(this.transform);
 
@@ -101,7 +107,7 @@ public class TunnelManager : MonoBehaviour {
         if (lastIndex == 0 && curNumOfFreeCylinders == 0)
         {
             curNumOfFreeCylinders = maxNumOfFreeCylinders;
-            lastIndex = (int)Random.Range(1f, 7);
+            lastIndex = (int)Random.Range(4f, 7);
             return lastIndex;
         }
         else
