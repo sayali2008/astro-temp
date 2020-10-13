@@ -9,19 +9,17 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     public GameObject gm;
     public int count=0;
+    public string op="";
     GameMaster gmScript;
-
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         gmScript = gm.GetComponent<GameMaster>();
 
-        // Color baseColorBlue = new Color( 0f,0f,0.7f);
-        // Color baseColorRed = new Color( 0.7f,0f,0f);
-        // Color baseColorGreen = new Color( 0.0f,0.7f,0f);
-        // Renderer rend = GetComponent<Renderer>();
-        // Material mat = rend.material;
-        // mat.SetColor("_Color", baseColorBlue);
+        Color baseColorRed = new Color( 0.7f,0f,0f);
+        Renderer rend = GetComponent<Renderer>();
+        Material mat = rend.material;
+        mat.SetColor("_Color", baseColorRed);
     }
 
     void FixedUpdate()
@@ -52,13 +50,14 @@ public class PlayerController : MonoBehaviour
         Color baseColorGreen = new Color( 0.0f,0.7f,0f);
         Renderer rend = GetComponent<Renderer>();
         Material mat = rend.material;
+        Debug.Log("Collision:" + (mat.color==baseColorRed));
 
-        if (hit.gameObject.CompareTag("Red")) {
+        if (hit.gameObject.CompareTag("Red") && (mat.color==baseColorRed)) {
             Destroy(hit.gameObject);
-        } else if (hit.gameObject.CompareTag("Green")) {
+        } else if (hit.gameObject.CompareTag("Green") && (mat.color==baseColorGreen) ) {
             Destroy(hit.gameObject);
-        } else if(hit.gameObject.CompareTag("Blue")) {
-            gmScript.SetGameOver(true);
+        } else if(hit.gameObject.CompareTag("Blue") && (mat.color==baseColorBlue) ) {
+            Destroy(hit.gameObject);
         } else if(hit.gameObject.CompareTag("BlueLoop")) {
             mat.SetColor("_Color", baseColorBlue);
             Destroy(hit.gameObject);
@@ -68,6 +67,8 @@ public class PlayerController : MonoBehaviour
         } else if(hit.gameObject.CompareTag("RedLoop")) {
             mat.SetColor("_Color", baseColorRed);
             Destroy(hit.gameObject);
+        } else if( (hit.gameObject.CompareTag("Red") && (mat.color!=baseColorRed)) || (hit.gameObject.CompareTag("Blue") && (mat.color!=baseColorBlue)) || (hit.gameObject.CompareTag("Green") && (mat.color!=baseColorGreen)) ) {
+            gmScript.SetGameOver(true);
         }
     }
     private void OnTriggerEnter(Collider other)
