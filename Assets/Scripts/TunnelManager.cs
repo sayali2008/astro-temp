@@ -60,11 +60,11 @@ public class TunnelManager : MonoBehaviour {
         } else if(count==21){
             prefabIndex=2;
         } 
-        // else if(count==61){
-        //     prefabIndex=3;
-        // }
+        else if(count==41){
+            prefabIndex=3;
+        }
         count++;
-        if(count >= 40)count=0;
+        if(count >= 60)count=0;
 
         cylinder = Instantiate(CylinderPrefabs[prefabIndex]) as GameObject;
         cylinder.transform.SetParent(this.transform);

@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision hit)
     {
-        Color baseColorBlue = new Color( 0f,0f,0.7f);
+        Color baseColorBlue = new Color( 0f,0.4f,0.6f);
         Color baseColorRed = new Color( 0.7f,0f,0f);
         Color baseColorGreen = new Color( 0.0f,0.7f,0f);
         Renderer rend = GetComponent<Renderer>();
