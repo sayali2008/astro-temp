@@ -28,13 +28,12 @@ public class GameOverMenu : MonoBehaviour {
             if(transitionAlpha < maxTrasitionAlpha)
                 transitionAlpha += Time.deltaTime;
             backgroundImg.color = Color.Lerp(new Color(0, 0, 0, 0), new Color(0, 0, 0, transitionAlpha), transitionAlpha);
-        }
-		
+        }	
 	}
 
     public void ToggleGameOverMenu(int score)
     {
-        // FindObjectOfType<MusicP>().DeathSound();
+        FindObjectOfType<MusicP>().DeathSound();
         gameObject.SetActive(true);
         scoreText.text = score.ToString();
         toggle = true;

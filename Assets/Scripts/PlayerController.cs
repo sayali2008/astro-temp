@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 public class PlayerController : MonoBehaviour
 {
@@ -15,7 +16,6 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         gmScript = gm.GetComponent<GameMaster>();
-
         Color baseColorRed = new Color( 0.7f,0f,0f);
         Renderer rend = GetComponent<Renderer>();
         Material mat = rend.material;
@@ -33,6 +33,8 @@ public class PlayerController : MonoBehaviour
             if (this.transform.position.y < -3)
             {
                 Debug.Log("Killed by falling");
+                AnalyticsResult res = Analytics.CustomEvent("Died due to falling");
+                Debug.Log(res);
                 gmScript.SetGameOver(true);
             }
 
@@ -50,7 +52,7 @@ public class PlayerController : MonoBehaviour
         Color baseColorGreen = new Color( 0.0f,0.7f,0f);
         Renderer rend = GetComponent<Renderer>();
         Material mat = rend.material;
-        Debug.Log("Collision:" + (mat.color==baseColorRed));
+        // Debug.Log("Collision:" + (mat.color==baseColorRed));
 
         if (hit.gameObject.CompareTag("Red") && (mat.color==baseColorRed)) {
             Destroy(hit.gameObject);
@@ -68,6 +70,7 @@ public class PlayerController : MonoBehaviour
             mat.SetColor("_Color", baseColorRed);
             Destroy(hit.gameObject);
         } else if( (hit.gameObject.CompareTag("Red") && (mat.color!=baseColorRed)) || (hit.gameObject.CompareTag("Blue") && (mat.color!=baseColorBlue)) || (hit.gameObject.CompareTag("Green") && (mat.color!=baseColorGreen)) ) {
+            AnalyticsResult res = Analytics.CustomEvent("Unmatched colors");
             gmScript.SetGameOver(true);
         }
     }
@@ -76,6 +79,8 @@ public class PlayerController : MonoBehaviour
         if(other.gameObject.CompareTag("Pick Up"))
         {
             gmScript.IncreamentScore(5);
+            AnalyticsResult res = Analytics.CustomEvent("Pickup coins");
+            Debug.Log(res);
             Destroy(other.gameObject);
         }
     }

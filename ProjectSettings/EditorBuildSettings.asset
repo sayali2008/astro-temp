@@ -10,4 +10,8 @@ EditorBuildSettings:
     guid: ee144f2e69f123a4fa3af1f8207a346b
   - enabled: 1
     path: Assets/Scenes/The Fall.unity
-    guid: 00000000000000000000000000000000
+    guid: cdaf30003bd4c784a98c0c1d7a45d5a5
+  - enabled: 1
+    path: Assets/Scenes/HighScore.unity
+    guid: cdddfdee4a2951547aa666482b8a7f51
+  m_configObjects: {}
