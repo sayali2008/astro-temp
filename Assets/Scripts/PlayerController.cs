@@ -10,6 +10,12 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     public GameObject gm;
     public int count=0;
+    public int coins_collected = 0;
+    public int red_coins_collected = 0;
+    public int green_coins_collected = 0;
+    public int blue_coins_collected = 0;
+    public int wrong_coins_collected = 0;
+    public int color_loops_passed = 0;
     public string op="";
     GameMaster gmScript;
     void Start()
@@ -24,6 +30,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        AnalyticsResult analyticsResult;
         if (!gmScript.IsGameOver())
         {
             rb.velocity = new Vector3(0, rb.velocity.y, speed);
@@ -32,9 +39,15 @@ public class PlayerController : MonoBehaviour
 
             if (this.transform.position.y < -3)
             {
-                Debug.Log("Killed by falling");
-                AnalyticsResult res = Analytics.CustomEvent("Died due to falling");
-                Debug.Log(res);
+                //Debug.Log("Killed by falling");
+                analyticsResult = Analytics.CustomEvent("Total coins collected : " + coins_collected);
+                analyticsResult = Analytics.CustomEvent("Total Red coins collected : " + red_coins_collected);
+                analyticsResult = Analytics.CustomEvent("Total Green coins collected : " + green_coins_collected);
+                analyticsResult = Analytics.CustomEvent("Total Blue coins collected : " + blue_coins_collected);
+                analyticsResult = Analytics.CustomEvent("Total Mistached coins collected : " + wrong_coins_collected);
+                analyticsResult = Analytics.CustomEvent("Total colored loops encountered : " + color_loops_passed);
+                analyticsResult = Analytics.CustomEvent("Player's Speed : " + this.speed);
+                analyticsResult = Analytics.CustomEvent("Death by Pit");
                 gmScript.SetGameOver(true);
             }
 
@@ -52,7 +65,8 @@ public class PlayerController : MonoBehaviour
         Color baseColorGreen = new Color( 0.0f,0.7f,0f);
         Renderer rend = GetComponent<Renderer>();
         Material mat = rend.material;
-        // Debug.Log("Collision:" + (mat.color==baseColorRed));
+        //Debug.Log("Collision:" + (mat.color==baseColorRed));
+        AnalyticsResult analyticsResult;
 
         if (hit.gameObject.CompareTag("Red") && (mat.color==baseColorRed)) {
             Destroy(hit.gameObject);
@@ -61,27 +75,89 @@ public class PlayerController : MonoBehaviour
         } else if(hit.gameObject.CompareTag("Blue") && (mat.color==baseColorBlue) ) {
             Destroy(hit.gameObject);
         } else if(hit.gameObject.CompareTag("BlueLoop")) {
+            color_loops_passed++;
             mat.SetColor("_Color", baseColorBlue);
             Destroy(hit.gameObject);
         } else if(hit.gameObject.CompareTag("GreenLoop")) {
+            color_loops_passed++;
             mat.SetColor("_Color", baseColorGreen);
             Destroy(hit.gameObject);
         } else if(hit.gameObject.CompareTag("RedLoop")) {
+            color_loops_passed++;
             mat.SetColor("_Color", baseColorRed);
             Destroy(hit.gameObject);
         } else if( (hit.gameObject.CompareTag("Red") && (mat.color!=baseColorRed)) || (hit.gameObject.CompareTag("Blue") && (mat.color!=baseColorBlue)) || (hit.gameObject.CompareTag("Green") && (mat.color!=baseColorGreen)) ) {
-            AnalyticsResult res = Analytics.CustomEvent("Unmatched colors");
+            analyticsResult = Analytics.CustomEvent("Total coins collected : " + coins_collected);
+            analyticsResult = Analytics.CustomEvent("Total Red coins collected : " + red_coins_collected);
+            analyticsResult = Analytics.CustomEvent("Total Green coins collected : " + green_coins_collected);
+            analyticsResult = Analytics.CustomEvent("Total Blue coins collected : " + blue_coins_collected);
+            analyticsResult = Analytics.CustomEvent("Total Mistached coins collected : " + wrong_coins_collected);
+            analyticsResult = Analytics.CustomEvent("Total colored loops encountered : " + color_loops_passed);
+            analyticsResult = Analytics.CustomEvent("Player's Speed : " + this.speed);
+            analyticsResult = Analytics.CustomEvent("Death by passing through wrong colored loop");
+            string spaceship_color = "";
+            if(mat.color==baseColorRed)spaceship_color="Red";
+            if(mat.color==baseColorRed)spaceship_color="Blue";
+            if(mat.color==baseColorRed)spaceship_color="Green";
+            string color_loop = "";
+            if(hit.gameObject.CompareTag("Red"))color_loop="Red";
+            if(hit.gameObject.CompareTag("Blue"))color_loop="Blue";
+            if(hit.gameObject.CompareTag("Green"))color_loop="Green";
+            analyticsResult = Analytics.CustomEvent("Expected : "+ spaceship_color + " | Actual : " + color_loop);
             gmScript.SetGameOver(true);
         }
     }
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag("Pick Up"))
+        AnalyticsResult analyticsResult;
+        Color baseColorBlue = new Color( 0f,0.4f,0.6f);
+        Color baseColorRed = new Color( 0.7f,0f,0f);
+        Color baseColorGreen = new Color( 0.0f,0.7f,0f);
+        Renderer rend = GetComponent<Renderer>();
+        Material mat = rend.material;
+        string coin_color = "";
+        if(other.gameObject.CompareTag("RedCoin"))coin_color="Red";
+        if(other.gameObject.CompareTag("BlueCoin"))coin_color="Blue";
+        if(other.gameObject.CompareTag("GreenCoin"))coin_color="Green";
+        if(other.gameObject.CompareTag("RedCoin") && (mat.color==baseColorRed))
         {
+            Debug.Log("Red Coin");
+            coins_collected++;
+            red_coins_collected++;
             gmScript.IncreamentScore(5);
             AnalyticsResult res = Analytics.CustomEvent("Pickup coins");
             Debug.Log(res);
             Destroy(other.gameObject);
+        }
+        else if(other.gameObject.CompareTag("BlueCoin")&& (mat.color==baseColorBlue))
+        {
+
+            coins_collected++;
+            blue_coins_collected++;
+            gmScript.IncreamentScore(5);
+            Destroy(other.gameObject);
+        }
+        else if(other.gameObject.CompareTag("GreenCoin") && (mat.color==baseColorGreen))
+        {
+
+            coins_collected++;
+            green_coins_collected++;
+            gmScript.IncreamentScore(5);
+            Destroy(other.gameObject);
+        } else if(!other.gameObject.CompareTag("RedCoin") && (mat.color==baseColorRed) || (!other.gameObject.CompareTag("BlueCoin")&& (mat.color==baseColorBlue)) || (!other.gameObject.CompareTag("GreenCoin") && (mat.color==baseColorGreen))){
+            wrong_coins_collected++;
+            gmScript.IncreamentScore(-10);
+            if(gmScript.getScore()<0){
+                analyticsResult = Analytics.CustomEvent("Total coins collected : " + coins_collected);
+                analyticsResult = Analytics.CustomEvent("Total Red coins collected : " + red_coins_collected);
+                analyticsResult = Analytics.CustomEvent("Total Green coins collected : " + green_coins_collected);
+                analyticsResult = Analytics.CustomEvent("Total Blue coins collected : " + blue_coins_collected);
+                analyticsResult = Analytics.CustomEvent("Total Mistached coins collected : " + wrong_coins_collected);
+                analyticsResult = Analytics.CustomEvent("Total colored loops encountered : " + color_loops_passed);
+                analyticsResult = Analytics.CustomEvent("Player's Speed : " + this.speed);
+                analyticsResult = Analytics.CustomEvent("Death by mismatched coins collected");
+                gmScript.SetGameOver(true);
+            }
         }
     }
 

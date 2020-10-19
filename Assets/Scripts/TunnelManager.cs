@@ -5,6 +5,7 @@ using UnityEngine;
 public class TunnelManager : MonoBehaviour {
 
     public GameObject[] CylinderPrefabs;
+    public GameObject[] coins;
     public GameObject bonus;
     public int count=0;
     private List<GameObject> cylindersOnScreen;
@@ -86,8 +87,10 @@ public class TunnelManager : MonoBehaviour {
         if( cylinderID ==0)
         {
             float spawnChance = Random.Range(0f,1f);
-            if (spawnChance >= 0.9f)
-                Instantiate(bonus, new Vector3(0,0,spawnZ), Quaternion.Euler(0,0, ChooseAngle()*60f), cylinder.transform);
+            if (spawnChance >= 0.8f){
+                int color_idx = (int)(Random.Range(0f,1f)*10)%3;
+                Instantiate(coins[color_idx], new Vector3(0,0,spawnZ), Quaternion.Euler(0,0, ChooseAngle()*60f), cylinder.transform);
+            }
         }
     }
 

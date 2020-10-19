@@ -49,6 +49,11 @@ public class GameMaster : MonoBehaviour {
 		}
 	}
 
+	public int getScore()
+    {
+        return score;
+    }
+
 	public void RecolorTiles()
 	{
 		tiles = GameObject.FindGameObjectsWithTag("Respawn");
@@ -85,7 +90,7 @@ public class GameMaster : MonoBehaviour {
 	{
 		return gameOver;
 	}
-
+	
 	public void SetGameOver( bool over)
 	{
 		gameOver = over;

@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4857166014128828}
   m_Layer: 0
-  m_Name: Bonus
-  m_TagString: RedCoin
+  m_Name: GreenCoin
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 114694159484567140}
   m_Layer: 0
   m_Name: PointPickUp
-  m_TagString: RedCoin
+  m_TagString: GreenCoin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -104,7 +104,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6a6944f4904547e4fb039789da5fcd85, type: 2}
+  - {fileID: 2100000, guid: efe6fc25350958c479cd9fcde7e565f9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
