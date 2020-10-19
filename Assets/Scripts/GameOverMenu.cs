@@ -34,7 +34,7 @@ public class GameOverMenu : MonoBehaviour {
 
     public void ToggleGameOverMenu(int score)
     {
-        // FindObjectOfType<MusicP>().DeathSound();
+        FindObjectOfType<MusicP>().DeathSound();
         gameObject.SetActive(true);
         scoreText.text = score.ToString();
         toggle = true;

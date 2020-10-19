@@ -78,6 +78,10 @@ public class GameMaster : MonoBehaviour {
         pc.SetSpeed(pc.GetSpeed() + difficultyModifier);
     }
 
+    public int getScore()
+    {
+        return score;
+    }
     public bool IsGameOver()
     {
         return gameOver;
