@@ -812,6 +812,10 @@ MonoBehaviour:
   - {fileID: 1011500375631074, guid: 5f5f553cf9cbafa48875cb8a5d98dc75, type: 3}
   - {fileID: 1120481339179720, guid: 4f268495bbb97e4468f16772dd46cbe0, type: 3}
   - {fileID: 1937859975943118, guid: aa3947d4efa455946a8333f8c2ec1a50, type: 3}
+  coins:
+  - {fileID: 1044195637806918, guid: 78d440a07b67def498d05ff31dbc1202, type: 3}
+  - {fileID: 1044195637806918, guid: b5e943c6d98904f37a6f60c7a8b8befd, type: 3}
+  - {fileID: 1044195637806918, guid: 3c8ffc39635c34d7eb1c01fe8d8d3619, type: 3}
   bonus: {fileID: 1044195637806918, guid: 78d440a07b67def498d05ff31dbc1202, type: 3}
   count: 0
   maxNumOfFreeCylinders: 3
@@ -1360,6 +1364,12 @@ MonoBehaviour:
   speed: 10
   gm: {fileID: 1245382202}
   count: 0
+  coins_collected: 0
+  red_coins_collected: 0
+  green_coins_collected: 0
+  blue_coins_collected: 0
+  wrong_coins_collected: 0
+  color_loops_passed: 0
   op: 
 --- !u!1 &1617293731
 GameObject:
@@ -1802,10 +1812,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 934bb1a21d1184f47bdff3ea7d078ed0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelMusic: {fileID: 0}
-  deathMusic: {fileID: 0}
-  levelSong: 1
-  deathSong: 0
 --- !u!4 &1787450869
 Transform:
   m_ObjectHideFlags: 0

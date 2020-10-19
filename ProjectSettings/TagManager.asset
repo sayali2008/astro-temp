@@ -17,6 +17,9 @@ TagManager:
   - RedLoop
   - GreenLoop
   - BlueLoop
+  - RedCoin
+  - BlueCoin
+  - GreenCoin
   layers:
   - Default
   - TransparentFX
