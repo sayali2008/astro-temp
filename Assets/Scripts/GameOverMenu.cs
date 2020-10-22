@@ -45,6 +45,10 @@ public class GameOverMenu : MonoBehaviour {
         GameMaster gmScript = GameObject.FindGameObjectWithTag("GameMaster").GetComponent<GameMaster>();
     }
 
+    public void LeaderBoard() {
+        SceneManager.LoadScene("HighScore");
+    }
+
     public void GoToTitleMenu()
     {
         SceneManager.LoadScene("Menu");

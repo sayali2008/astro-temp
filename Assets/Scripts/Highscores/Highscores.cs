@@ -17,6 +17,8 @@ public class Highscores : MonoBehaviour
         string s = PlayerPrefs.GetString("HighScores");
         String[] scores = s.Split(',');
         foreach(var score in scores) {
+            if(Convert.ToInt32(score) < 0)
+                break;
             HighScoreText += score + "\n";
             RankText += i + "\n";
             i += 1;
