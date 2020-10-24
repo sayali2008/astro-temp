@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        AnalyticsResult analyticsResult;
+       // AnalyticsResult analyticsResult;
         if (!gmScript.IsGameOver())
         {
             rb.velocity = new Vector3(0, rb.velocity.y, speed);
@@ -41,14 +41,52 @@ public class PlayerController : MonoBehaviour
             if (this.transform.position.y < -3)
             {
                 //Debug.Log("Killed by falling");
-                analyticsResult = Analytics.CustomEvent("Total coins collected : " + coins_collected);
-                analyticsResult = Analytics.CustomEvent("Total Red coins collected : " + red_coins_collected);
-                analyticsResult = Analytics.CustomEvent("Total Green coins collected : " + green_coins_collected);
-                analyticsResult = Analytics.CustomEvent("Total Blue coins collected : " + blue_coins_collected);
-                analyticsResult = Analytics.CustomEvent("Total Mistached coins collected : " + wrong_coins_collected);
-                analyticsResult = Analytics.CustomEvent("Total colored loops encountered : " + color_loops_passed);
-                analyticsResult = Analytics.CustomEvent("Player's Speed : " + this.speed);
-                analyticsResult = Analytics.CustomEvent("Death by Pit");
+                // analyticsResult = Analytics.CustomEvent("Total coins collected : " + coins_collected);
+                // analyticsResult = Analytics.CustomEvent("Total Red coins collected : " + red_coins_collected);
+                // analyticsResult = Analytics.CustomEvent("Total Green coins collected : " + green_coins_collected);
+                // analyticsResult = Analytics.CustomEvent("Total Blue coins collected : " + blue_coins_collected);
+                // analyticsResult = Analytics.CustomEvent("Total Mistached coins collected : " + wrong_coins_collected);
+                // analyticsResult = Analytics.CustomEvent("Total colored loops encountered : " + color_loops_passed);
+                // analyticsResult = Analytics.CustomEvent("Player's Speed : " + this.speed);
+                // analyticsResult = Analytics.CustomEvent("Death by Pit");
+                Analytics.CustomEvent("speedEvent", new Dictionary<string, object>
+                        {
+                            { "speed", this.speed}
+                        });
+                Analytics.CustomEvent("distanceEvent", new Dictionary<string, object>
+                        {
+                            { "distance", this.transform.position.z}
+                        });
+
+                Analytics.CustomEvent("deathEvent", new Dictionary<string, object>
+                        {
+                            { "death", "pit"}
+                        });
+                Analytics.CustomEvent("totalCoinsEvent", new Dictionary<string, object>
+                        {
+                            { "totCoins", coins_collected}
+                        });
+                Analytics.CustomEvent("redCoinsEvent", new Dictionary<string, object>
+                        {
+                            { "redCoins", red_coins_collected}
+                        });
+                Analytics.CustomEvent("greenCoinsEvent", new Dictionary<string, object>
+                        {
+                            { "greenCoins", green_coins_collected}
+                        });
+                Analytics.CustomEvent("blueCoinsEvent", new Dictionary<string, object>
+                        {
+                            { "blueCoins", blue_coins_collected}
+                        });
+                Analytics.CustomEvent("mismatchedCoinsEvent", new Dictionary<string, object>
+                        {
+                            { "mismatchedCoins", wrong_coins_collected}
+                        });
+                Analytics.CustomEvent("totalColorLoopsEvent", new Dictionary<string, object>
+                        {
+                            { "totalColorLoops", color_loops_passed}
+                        });
+
                 gmScript.SetGameOver(true);
             }
 
@@ -67,7 +105,7 @@ public class PlayerController : MonoBehaviour
         Renderer rend = GetComponent<Renderer>();
         Material mat = rend.material;
         //Debug.Log("Collision:" + (mat.color==baseColorRed));
-        AnalyticsResult analyticsResult;
+        //AnalyticsResult analyticsResult;
 
         if (hit.gameObject.CompareTag("Red") && (mat.color==baseColorRed)) {
             Destroy(hit.gameObject);
@@ -88,14 +126,51 @@ public class PlayerController : MonoBehaviour
             mat.SetColor("_Color", baseColorRed);
             Destroy(hit.gameObject);
         } else if( (hit.gameObject.CompareTag("Red") && (mat.color!=baseColorRed)) || (hit.gameObject.CompareTag("Blue") && (mat.color!=baseColorBlue)) || (hit.gameObject.CompareTag("Green") && (mat.color!=baseColorGreen)) ) {
-            analyticsResult = Analytics.CustomEvent("Total coins collected : " + coins_collected);
-            analyticsResult = Analytics.CustomEvent("Total Red coins collected : " + red_coins_collected);
-            analyticsResult = Analytics.CustomEvent("Total Green coins collected : " + green_coins_collected);
-            analyticsResult = Analytics.CustomEvent("Total Blue coins collected : " + blue_coins_collected);
-            analyticsResult = Analytics.CustomEvent("Total Mistached coins collected : " + wrong_coins_collected);
-            analyticsResult = Analytics.CustomEvent("Total colored loops encountered : " + color_loops_passed);
-            analyticsResult = Analytics.CustomEvent("Player's Speed : " + this.speed);
-            analyticsResult = Analytics.CustomEvent("Death by passing through wrong colored loop");
+            // analyticsResult = Analytics.CustomEvent("Total coins collected : " + coins_collected);
+            // analyticsResult = Analytics.CustomEvent("Total Red coins collected : " + red_coins_collected);
+            // analyticsResult = Analytics.CustomEvent("Total Green coins collected : " + green_coins_collected);
+            // analyticsResult = Analytics.CustomEvent("Total Blue coins collected : " + blue_coins_collected);
+            // analyticsResult = Analytics.CustomEvent("Total Mistached coins collected : " + wrong_coins_collected);
+            // analyticsResult = Analytics.CustomEvent("Total colored loops encountered : " + color_loops_passed);
+            // analyticsResult = Analytics.CustomEvent("Player's Speed : " + this.speed);
+            // analyticsResult = Analytics.CustomEvent("Death by passing through wrong colored loop");
+                Analytics.CustomEvent("speedEvent", new Dictionary<string, object>
+                        {
+                            { "speed", this.speed}
+                        });
+                Analytics.CustomEvent("distanceEvent", new Dictionary<string, object>
+                        {
+                            { "distance", this.transform.position.z}
+                        });
+
+                Analytics.CustomEvent("deathEvent", new Dictionary<string, object>
+                        {
+                            { "death", "wrong_color_loop"}
+                        });
+                Analytics.CustomEvent("totalCoinsEvent", new Dictionary<string, object>
+                        {
+                            { "totCoins", coins_collected}
+                        });
+                Analytics.CustomEvent("redCoinsEvent", new Dictionary<string, object>
+                        {
+                            { "redCoins", red_coins_collected}
+                        });
+                Analytics.CustomEvent("greenCoinsEvent", new Dictionary<string, object>
+                        {
+                            { "greenCoins", green_coins_collected}
+                        });
+                Analytics.CustomEvent("blueCoinsEvent", new Dictionary<string, object>
+                        {
+                            { "blueCoins", blue_coins_collected}
+                        });
+                Analytics.CustomEvent("mismatchedCoinsEvent", new Dictionary<string, object>
+                        {
+                            { "mismatchedCoins", wrong_coins_collected}
+                        });
+                Analytics.CustomEvent("totalColorLoopsEvent", new Dictionary<string, object>
+                        {
+                            { "totalColorLoops", color_loops_passed}
+                        });
             string spaceship_color = "";
             if(mat.color==baseColorRed)spaceship_color="Red";
             if(mat.color==baseColorRed)spaceship_color="Blue";
@@ -104,13 +179,13 @@ public class PlayerController : MonoBehaviour
             if(hit.gameObject.CompareTag("Red"))color_loop="Red";
             if(hit.gameObject.CompareTag("Blue"))color_loop="Blue";
             if(hit.gameObject.CompareTag("Green"))color_loop="Green";
-            analyticsResult = Analytics.CustomEvent("Expected : "+ spaceship_color + " | Actual : " + color_loop);
+            //analyticsResult = Analytics.CustomEvent("Expected : "+ spaceship_color + " | Actual : " + color_loop);
             gmScript.SetGameOver(true);
         }
     }
     private void OnTriggerEnter(Collider other)
     {
-        AnalyticsResult analyticsResult;
+        //AnalyticsResult analyticsResult;
         Color baseColorBlue = new Color( 0f,0.4f,0.6f);
         Color baseColorRed = new Color( 0.7f,0f,0f);
         Color baseColorGreen = new Color( 0.0f,0.7f,0f);
@@ -141,20 +216,57 @@ public class PlayerController : MonoBehaviour
 
             coins_collected++;
             green_coins_collected++;
-            gmScript.IncreamentScore(5);
+            gmScript.IncreamentScore(10);
             Destroy(other.gameObject);
         } else if(!other.gameObject.CompareTag("RedCoin") && (mat.color==baseColorRed) || (!other.gameObject.CompareTag("BlueCoin")&& (mat.color==baseColorBlue)) || (!other.gameObject.CompareTag("GreenCoin") && (mat.color==baseColorGreen))){
             wrong_coins_collected++;
-            gmScript.IncreamentScore(-10);
+            gmScript.IncreamentScore(-2);
             if(gmScript.getScore()<0){
-                analyticsResult = Analytics.CustomEvent("Total coins collected : " + coins_collected);
-                analyticsResult = Analytics.CustomEvent("Total Red coins collected : " + red_coins_collected);
-                analyticsResult = Analytics.CustomEvent("Total Green coins collected : " + green_coins_collected);
-                analyticsResult = Analytics.CustomEvent("Total Blue coins collected : " + blue_coins_collected);
-                analyticsResult = Analytics.CustomEvent("Total Mistached coins collected : " + wrong_coins_collected);
-                analyticsResult = Analytics.CustomEvent("Total colored loops encountered : " + color_loops_passed);
-                analyticsResult = Analytics.CustomEvent("Player's Speed : " + this.speed);
-                analyticsResult = Analytics.CustomEvent("Death by mismatched coins collected");
+                // analyticsResult = Analytics.CustomEvent("Total coins collected : " + coins_collected);
+                // analyticsResult = Analytics.CustomEvent("Total Red coins collected : " + red_coins_collected);
+                // analyticsResult = Analytics.CustomEvent("Total Green coins collected : " + green_coins_collected);
+                // analyticsResult = Analytics.CustomEvent("Total Blue coins collected : " + blue_coins_collected);
+                // analyticsResult = Analytics.CustomEvent("Total Mistached coins collected : " + wrong_coins_collected);
+                // analyticsResult = Analytics.CustomEvent("Total colored loops encountered : " + color_loops_passed);
+                // analyticsResult = Analytics.CustomEvent("Player's Speed : " + this.speed);
+                // analyticsResult = Analytics.CustomEvent("Death by mismatched coins collected");
+                Analytics.CustomEvent("speedEvent", new Dictionary<string, object>
+                        {
+                            { "speed", this.speed}
+                        });
+                Analytics.CustomEvent("distanceEvent", new Dictionary<string, object>
+                        {
+                            { "distance", this.transform.position.z}
+                        });
+
+                Analytics.CustomEvent("deathEvent", new Dictionary<string, object>
+                        {
+                            { "death", "wrong_coins_collected"}
+                        });
+                Analytics.CustomEvent("totalCoinsEvent", new Dictionary<string, object>
+                        {
+                            { "totCoins", coins_collected}
+                        });
+                Analytics.CustomEvent("redCoinsEvent", new Dictionary<string, object>
+                        {
+                            { "redCoins", red_coins_collected}
+                        });
+                Analytics.CustomEvent("greenCoinsEvent", new Dictionary<string, object>
+                        {
+                            { "greenCoins", green_coins_collected}
+                        });
+                Analytics.CustomEvent("blueCoinsEvent", new Dictionary<string, object>
+                        {
+                            { "blueCoins", blue_coins_collected}
+                        });
+                Analytics.CustomEvent("mismatchedCoinsEvent", new Dictionary<string, object>
+                        {
+                            { "mismatchedCoins", wrong_coins_collected}
+                        });
+                Analytics.CustomEvent("totalColorLoopsEvent", new Dictionary<string, object>
+                        {
+                            { "totalColorLoops", color_loops_passed}
+                        });
                 gmScript.SetGameOver(true);
             }
         }
@@ -170,5 +282,3 @@ public class PlayerController : MonoBehaviour
         return this.speed;
     }
 }
-
- 

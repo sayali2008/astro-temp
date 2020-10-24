@@ -20,6 +20,10 @@ TagManager:
   - RedCoin
   - BlueCoin
   - GreenCoin
+  - life_pot
+  - death_pot
+  - halloween
+  - Halloween
   layers:
   - Default
   - TransparentFX

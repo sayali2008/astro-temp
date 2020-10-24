@@ -190,7 +190,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 1234
+  m_Text: 0
 --- !u!222 &114189211
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -256,7 +256,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 5ad668d5bd4c8654383ec755ff7634eb, type: 3}
     m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
@@ -479,7 +479,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &651105005
 RectTransform:
   m_ObjectHideFlags: 0
@@ -816,6 +816,7 @@ MonoBehaviour:
   - {fileID: 1044195637806918, guid: 78d440a07b67def498d05ff31dbc1202, type: 3}
   - {fileID: 1044195637806918, guid: b5e943c6d98904f37a6f60c7a8b8befd, type: 3}
   - {fileID: 1044195637806918, guid: 3c8ffc39635c34d7eb1c01fe8d8d3619, type: 3}
+  - {fileID: 1044195637806918, guid: c2a8de0799175408cb7aff2df0da2c7b, type: 3}
   bonus: {fileID: 1044195637806918, guid: 78d440a07b67def498d05ff31dbc1202, type: 3}
   count: 0
   maxNumOfFreeCylinders: 3
@@ -1126,7 +1127,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1371898607
 RectTransform:
   m_ObjectHideFlags: 0

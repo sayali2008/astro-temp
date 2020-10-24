@@ -87,7 +87,7 @@ public class TunnelManager : MonoBehaviour {
         if( cylinderID ==0)
         {
             float spawnChance = Random.Range(0f,1f);
-            if (spawnChance >= 0.8f){
+            if (spawnChance >= 0.4f){
                 int color_idx = (int)(Random.Range(0f,1f)*10)%3;
                 Instantiate(coins[color_idx], new Vector3(0,0,spawnZ), Quaternion.Euler(0,0, ChooseAngle()*60f), cylinder.transform);
             }
