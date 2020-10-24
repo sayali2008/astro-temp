@@ -42,5 +42,5 @@ public class PausedResume : MonoBehaviour
     public void PauseButtonRemove()
     {
       PauseButton.SetActive(false);   
-    }
+    }   
 }
