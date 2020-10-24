@@ -38,4 +38,9 @@ public class PausedResume : MonoBehaviour
         PauseButton.SetActive(true);
         FindObjectOfType<MusicP>().SoundControlResume();
     }
+     //added
+    public void PauseButtonRemove()
+    {
+      PauseButton.SetActive(false);   
+    }
 }
