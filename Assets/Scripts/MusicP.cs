@@ -41,4 +41,13 @@ public class MusicP : MonoBehaviour
             deathSong=true;
         }
     }
+    //added
+    public void SoundControlPause()
+    {
+        levelMusic.Pause();     
+    }
+    public void SoundControlResume()
+    {
+        levelMusic.Play();     
+    }
 }
