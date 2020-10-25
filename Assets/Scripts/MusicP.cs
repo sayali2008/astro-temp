@@ -10,6 +10,10 @@ public class MusicP : MonoBehaviour
     public bool levelSong=true;
     public bool deathSong=false;
 
+     //added 25-10
+    private float musicVolume=1f;
+    private float deathVolume=1f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +23,9 @@ public class MusicP : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //added 25-10
+        levelMusic.volume=musicVolume;
+        deathMusic.volume=deathVolume;
     }
     
     public void LevelSound()
@@ -49,5 +55,12 @@ public class MusicP : MonoBehaviour
     public void SoundControlResume()
     {
         levelMusic.Play();     
+    }
+
+     //added 25-10
+    public void SetVolume(float vol)
+    {
+        musicVolume=vol;
+        deathVolume=vol;
     }
 }
